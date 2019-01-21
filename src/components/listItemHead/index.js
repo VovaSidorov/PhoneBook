@@ -1,16 +1,17 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
-const ListItem = ({id,telephone,ns,company,email,photo}) => {
+const ListItemHead = ({id,telephone,ns,company,email,photo}) => {
     return   (
-        <tr>
+        <Fragment>
         <th>{id}</th>
         <th>{telephone}</th>
             <th>{ns}</th>
             <th>{company}</th>
             <th>{email}</th>
             <th>{photo}</th>
-        </tr>
+            {/*<th>Options</th>*/}
+        </Fragment>
     );
 };
 
-export default ListItem;
+export default ListItemHead;
