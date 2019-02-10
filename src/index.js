@@ -5,10 +5,13 @@ import HeadPhoneBook from "./components/headPhoneBook";
 import BodyPhoneBook from "./components/bodyPhoneBook";
 import SearchPanel from "./components/seachPanel";
 import AppHeader from "./components/AppHeader";
+import ItemAddForm from "./components/ItemAddForm";
 
 
 
 export default class App extends Component  {
+
+    key = 1;
 
    state ={
 
@@ -17,12 +20,38 @@ export default class App extends Component  {
        ],
 
        bodyData: [
-        {n:1, id:"1", telephone:"093-130-95-19", ns:"Vova", company:"Evotek", email:"VovaCivic@gmail.com",photo:"Photo"},
-        {n:2, id:"2", telephone:"050-145-98-74", ns:"Leva", company:"S-Pro", email:"s-pro@gmail.com",photo:"Photo"},
-        {n:3, id:"3", telephone:"066-142-98-74", ns:"Alena", company:"Flexi", email:"Alena@gmail.com",photo:"Photo"},
-        {n:4, id:"4", telephone:"098-188-01-01", ns:"Andrey", company:"ElPrivod", email:"ElPrivod@gmail.com",photo:"Photo"},
+           this.createToDoItem("1","093-130-95-19","Vova","Evotek","VovaCivic@gmail.com","Photo"),
+           this.createToDoItem("2","050-145-98-74","Leva","S-Pro","s-pro@gmail.com","Photo"),
+           this.createToDoItem("3","066-142-98-74","Alena","Flexi","Alena@gmail.com","Photo"),
+           this.createToDoItem("4","098-188-01-01", "Andrey","ElPrivod","ElPrivod@gmail.com","Photo"),
     ]
    };
+
+    createToDoItem(id,telephone,ns,company,email,photo){
+        return {
+            id:this.key++,
+            telephone,
+            ns,
+            company,
+            email,
+            photo
+        }
+    }
+
+    addItem = (id,telephone,ns,company,email,photo) =>{
+        const newItem = this.createToDoItem(id,telephone,ns,company,email,photo);
+
+        this.setState(({bodyData})=>{
+            const newArr=[
+                ...bodyData,
+                newItem
+            ];
+
+            return{
+                bodyData:newArr
+            };
+        });
+    };
 
    deleteItem=(id)=>{
      this.setState(({bodyData})=>{
@@ -47,6 +76,8 @@ render() {
                                onDeleted={this.deleteItem}
                 />
             </table>
+            <ItemAddForm
+                onItemAdded={this.addItem} />
         </div>
     );
 
